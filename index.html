@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffebf0; /* Tono rosa pastel suave */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            text-align: center;
+            overflow: hidden; /* Evita que la pantalla se mueva cuando el botón crece mucho */
+        }
+        #contenedor {
+            z-index: 10;
+            padding: 20px;
+        }
+        h1 {
+            color: #d81b60;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .botones {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            font-size: 1.2em;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Hace que el crecimiento sea suave */
+        }
+        #btnSi {
+            background-color: #e91e63;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+            position: relative;
+            z-index: 20;
+        }
+        #btnNo {
+            background-color: #f8bbd0;
+            color: #880e4f;
+            position: relative;
+            z-index: 1;
+        }
+        #mensajeFinal {
+            display: none; /* Oculto al inicio */
+            color: #d81b60;
+            padding: 20px;
+        }
+        #mensajeFinal h1 {
+            font-size: 2.5em;
+        }
+        .detalles-cita {
+            font-size: 1.5em;
+            color: #880e4f;
+            line-height: 1.6;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        /* Un osito tierno para la pantalla final */
+        .gif-container img {
+            max-width: 250px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="contenedor">
+        <h1>¿Quieres ser mi cita de San Valentín? ❤️</h1>
+        <div class="botones">
+            <button id="btnSi">¡Sí! 💕</button>
+            <button id="btnNo">No</button>
+        </div>
+    </div>
+
+    <div id="mensajeFinal">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z5ZThpaWgzd2J5eHZ2bGw4dG96aXN5ZzN6ZGN5b2F4Z3pxbXJ4dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26BRv0ThflsHCI70k/giphy.gif" alt="Osito tierno">
+        </div>
+        <h1>¡Sabía que dirías que sí! 🥰</h1>
+        <div class="detalles-cita">
+            Cita el 14 de febrero a las 21:00 horas.<br>
+            <strong>Vestirse elegante.</strong><br>
+            Te amo. ❤️
+        </div>
+    </div>
+
+    <script>
+        // Obtenemos los elementos de la página
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+        const contenedor = document.getElementById('contenedor');
+        const mensajeFinal = document.getElementById('mensajeFinal');
+
+        // Valores iniciales del botón "Sí"
+        let tamañoFuenteSi = 1.2;
+        let paddingVerticalSi = 15;
+        let paddingHorizontalSi = 35;
+
+        // Textos divertidos para el botón "No"
+        const textosNo = ["¿Estás segura?", "Piénsalo bien...", "¡Oye!", "Me vas a romper el corazón 💔", "Última oportunidad", "No te dejare presionar esto"];
+        let contadorTextos = 0;
+
+        // Lógica al presionar "No"
+        btnNo.addEventListener('click', function() {
+            // Aumentamos el tamaño del botón "Sí" de forma exponencial
+            tamañoFuenteSi += 1.5;
+            paddingVerticalSi += 20;
+            paddingHorizontalSi += 30;
+
+            btnSi.style.fontSize = tamañoFuenteSi + 'em';
+            btnSi.style.padding = paddingVerticalSi + 'px ' + paddingHorizontalSi + 'px';
+            
+            // Cambiamos el texto del botón "No"
+            btnNo.innerText = textosNo[contadorTextos % textosNo.length];
+            contadorTextos++;
+        });
+
+        // Lógica al presionar "Sí"
+        btnSi.addEventListener('click', function() {
+            contenedor.style.display = 'none'; // Ocultamos la pregunta
+            mensajeFinal.style.display = 'block'; // Mostramos la invitación formal
+        });
+    </script>
+</body>
+</html>
