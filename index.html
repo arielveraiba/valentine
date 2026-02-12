@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para ti ❤️</title>
+    <title>Para voce ❤️</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #ffebf0; /* Tono rosa pastel suave */
+            background-color: #ffebf0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             text-align: center;
-            overflow: hidden; /* Evita que la pantalla se mueva cuando el botón crece mucho */
+            overflow: hidden;
         }
         #contenedor {
             z-index: 10;
@@ -38,7 +38,7 @@
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s ease; /* Hace que el crecimiento sea suave */
+            transition: all 0.3s ease;
         }
         #btnSi {
             background-color: #e91e63;
@@ -55,9 +55,11 @@
             z-index: 1;
         }
         #mensajeFinal {
-            display: none; /* Oculto al inicio */
+            display: none;
             color: #d81b60;
             padding: 20px;
+            max-width: 90%; /* Evita que se salga en celulares */
+            margin: 0 auto;
         }
         #mensajeFinal h1 {
             font-size: 2.5em;
@@ -73,11 +75,19 @@
             display: inline-block;
             margin-top: 20px;
         }
-        /* Un osito tierno para la pantalla final */
-        .gif-container img {
-            max-width: 250px;
+        
+        /* ESTA PARTE ES NUEVA Y ES IMPORTANTE PARA EL VIDEO */
+        .video-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .video-container video {
+            max-width: 300px; /* Tamaño controlado del video */
+            width: 100%;
             border-radius: 15px;
             margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -92,38 +102,34 @@
     </div>
 
     <div id="mensajeFinal">
-      <div class="video-container">
-            <video controls autoplay loop muted>
+        <div class="video-container">
+            <video controls autoplay loop muted playsinline>
                 <source src="flaquita.mp4" type="video/mp4">
+                Tu navegador no soporta este video.
             </video>
         </div>
         <h1>¡Ya sabía que dirías que sí! </h1>
         <div class="detalles-cita">
             Cita el 13 de febrero a las 17:00 horas.<br>
-            <strong>Vestirse elegante(de preferencia vestido por guapa).</strong><br>
+            <strong>Vestirse elegante (de preferencia vestido por guapa).</strong><br>
             Te amo caracolito. ❤️
         </div>
     </div>
 
     <script>
-        // Obtenemos los elementos de la página
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
         const contenedor = document.getElementById('contenedor');
         const mensajeFinal = document.getElementById('mensajeFinal');
 
-        // Valores iniciales del botón "Sí"
         let tamañoFuenteSi = 1.2;
         let paddingVerticalSi = 15;
         let paddingHorizontalSi = 35;
 
-        // Textos divertidos para el botón "No"
         const textosNo = ["¿Estás segura?", "Piénsalo bien...", "¡Oye!", "Me vas a romper el corazón 💔", "Última oportunidad", "No te dejare presionar esto"];
         let contadorTextos = 0;
 
-        // Lógica al presionar "No"
         btnNo.addEventListener('click', function() {
-            // Aumentamos el tamaño del botón "Sí" de forma exponencial
             tamañoFuenteSi += 1.5;
             paddingVerticalSi += 20;
             paddingHorizontalSi += 30;
@@ -131,15 +137,13 @@
             btnSi.style.fontSize = tamañoFuenteSi + 'em';
             btnSi.style.padding = paddingVerticalSi + 'px ' + paddingHorizontalSi + 'px';
             
-            // Cambiamos el texto del botón "No"
             btnNo.innerText = textosNo[contadorTextos % textosNo.length];
             contadorTextos++;
         });
 
-        // Lógica al presionar "Sí"
         btnSi.addEventListener('click', function() {
-            contenedor.style.display = 'none'; // Ocultamos la pregunta
-            mensajeFinal.style.display = 'block'; // Mostramos la invitación formal
+            contenedor.style.display = 'none';
+            mensajeFinal.style.display = 'block';
         });
     </script>
 </body>
