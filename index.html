@@ -18,7 +18,7 @@
             margin: 0;
             text-align: center;
             overflow-x: hidden;
-            padding: 10px;
+            padding: 20px;
         }
 
         .papel-collage {
@@ -30,8 +30,6 @@
             width: 380px;
             position: relative;
             transform: rotate(-1deg);
-            margin-top: 60px;
-            margin-bottom: 60px;
             z-index: 10;
         }
 
@@ -53,11 +51,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            position: relative;
-            z-index: 100; /* Prioridad máxima para clics */
+            gap: 20px;
+            flex-wrap: wrap; /* Permite que los botones bajen si crecen mucho */
+            margin-top: 30px;
+            min-height: 150px; /* Espacio para que el botón SI crezca sin mover todo */
         }
 
         button {
@@ -67,43 +64,63 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        #btnSi { background-color: #d32f2f; color: #fffaf0; position: relative; }
-        #btnNo { background-color: #d7ccc8; color: #5d4037; position: relative; }
+        #btnSi { 
+            background-color: #d32f2f; 
+            color: #fffaf0; 
+            z-index: 1; 
+        }
+
+        #btnNo { 
+            background-color: #d7ccc8; 
+            color: #5d4037; 
+            z-index: 5; /* Asegura que el botón No esté siempre "cliqueable" */
+        }
 
         .foto-polaroid {
             background: white;
             padding: 10px 10px 35px 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             position: absolute;
-            z-index: 1; 
+            z-index: -1; 
             width: 130px;
         }
         
         .foto-polaroid img { width: 100%; display: block; filter: sepia(10%); }
 
-        /* Tus fotos de ImgBB */
-        .foto-1 { top: -90px; left: -20px; transform: rotate(-8deg); }
-        .foto-2 { bottom: -90px; right: -10px; transform: rotate(6deg); }
+        .foto-1 { top: -80px; left: -30px; transform: rotate(-8deg); }
+        .foto-2 { bottom: -80px; right: -20px; transform: rotate(6deg); }
 
-        @media (max-width: 400px) {
-            .foto-1 { top: -110px; left: 0; right: 0; margin: auto; }
-            .foto-2 { bottom: -110px; right: 0; left: 0; margin: auto; }
+        #mensajeFinal { 
+            display: none; 
+            width: 100%; 
+            max-width: 500px; 
+            animation: aparecer 1s ease forwards;
         }
 
-        #mensajeFinal { display: none; width: 100%; max-width: 450px; }
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .video-marco {
             background: white; padding: 10px 10px 40px 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             transform: rotate(-2deg); margin-bottom: 25px;
         }
+
         .detalles-cita {
-            font-size: 1.3em; color: #4e342e; background: #fff8e1;
+            font-size: 1.2em; color: #4e342e; background: #fff8e1;
             padding: 25px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);
             clip-path: polygon(0% 5%, 5% 0%, 95% 2%, 100% 6%, 98% 95%, 95% 100%, 2% 98%, 0% 92%);
+        }
+
+        @media (max-width: 450px) {
+            .foto-1, .foto-2 { position: relative; top: 0; left: 0; right: 0; margin: 10px auto; transform: none; }
+            .papel-collage { margin-top: 20px; }
         }
     </style>
 </head>
@@ -128,16 +145,17 @@
 
     <div id="mensajeFinal">
         <div class="video-marco">
-            <iframe width="100%" height="450" 
-                src="https://www.youtube.com/embed/8Hf4zOz20LQ?rel=0&autoplay=1&mute=1&loop=1&playlist=8Hf4zOz20LQ&controls=0" 
-                title="Para ti" frameborder="0" allowfullscreen>
+            <iframe width="100%" height="315" 
+                src="https://www.youtube.com/embed/8Hf4zOz20LQ?autoplay=1&mute=1&loop=1&playlist=8Hf4zOz20LQ" 
+                title="Para ti" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
             </iframe>
         </div>
         <div class="detalles-cita">
-            <h1>¡Sabía que dirias q sí! soy irresistible na mentira bueno poquito, por tipazo.</h1>
-            Cita el 13 de febrero a las 17:00 horas.<br>
-            <strong>Vestirse elegante (de preferencia vestido por guapa).</strong><br>
-            Te amo caracolito. ❤️
+            <h2 style="font-family: 'Dancing Script';">¡Sabía que dirías que sí!</h2>
+            <p>Soy irresistible... bueno, poquito, por tipazo.</p>
+            Cita el <strong>13 de febrero</strong> a las <strong>17:00 horas</strong>.<br>
+            <small>(Vestirse elegante, de preferencia vestido por guapa).</small><br><br>
+            <strong>Te amo caracolito. ❤️</strong>
         </div>
     </div>
 
@@ -148,20 +166,41 @@
         const mensajeFinal = document.getElementById('mensajeFinal');
 
         let escala = 1;
-        const textosNo = ["¿Segura?", "Piénsalo bien...", "¡Oye!", "yala", "yalita💔", "andale", "Kelly Maria Ramos Villacis", "preciosotaaaa??:((((((", "espero espero", "last chance", "No puedes decirle q no, a tu flaco"];
+        const textosNo = [
+            "¿Segura?", 
+            "Piénsalo bien...", 
+            "¡Oye!", 
+            "yala", 
+            "yalita 💔", 
+            "ándale", 
+            "Kelly Maria Ramos Villacis", 
+            "¿preciosotaaaa? :(", 
+            "espero espero", 
+            "last chance", 
+            "No puedes decirle que no a tu flaco"
+        ];
         let contador = 0;
 
         btnNo.addEventListener('click', function(e) {
             e.preventDefault();
-            escala += 0.4;
-            btnSi.style.transform = `scale(${escala})`;
+            
+            // 1. Cambiar el texto del botón No
             btnNo.innerText = textosNo[contador % textosNo.length];
             contador++;
+
+            // 2. Hacer crecer el botón Sí
+            escala += 0.4;
+            btnSi.style.transform = `scale(${escala})`;
+
+            // 3. Mover ligeramente el botón No para que el SI no lo tape por completo
+            let moverY = contador * 15;
+            btnNo.style.transform = `translateY(${moverY}px)`;
         });
 
         btnSi.addEventListener('click', function() {
             contenedor.style.display = 'none';
             mensajeFinal.style.display = 'block';
+            window.scrollTo(0,0);
         });
     </script>
 </body>
