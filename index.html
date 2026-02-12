@@ -6,81 +6,73 @@
     <title>Para voce ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
-        /* Fondo con patrón de cuadrícula y color beige vintage */
+        /* Fondo con patrón de cuadrícula vintage */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #fdfaf6; /* Beige claro */
+            background-color: #fdfaf6;
             background-image: 
                 linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
-            background-size: 20px 20px; /* Tamaño de la cuadrícula */
-            font-family: 'Special Elite', cursive; /* Fuente tipo máquina de escribir por defecto */
+            background-size: 20px 20px;
+            font-family: 'Special Elite', cursive;
             margin: 0;
             text-align: center;
-            overflow: hidden;
-            padding: 20px;
+            overflow-x: hidden;
+            padding: 10px;
         }
 
-        /* Estilo común para los contenedores de "papel" */
+        /* Contenedor principal estilo papel */
         .papel-collage {
             background-color: #fffcf8;
-            padding: 30px;
+            padding: 30px 20px;
             border-radius: 2px;
-            box-shadow: 
-                0 4px 15px rgba(0,0,0,0.1),
-                0 0 0 1px rgba(0,0,0,0.05) inset; /* Borde sutil */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             max-width: 90%;
-            width: 400px;
+            width: 380px;
             position: relative;
-            /* Efecto de papel ligeramente girado */
             transform: rotate(-1deg);
+            /* Márgenes para que las fotos tengan espacio arriba y abajo */
+            margin-top: 70px;
+            margin-bottom: 70px;
         }
 
-        /* Elemento decorativo de cinta adhesiva (washi tape) en la parte superior */
+        /* Cinta adhesiva decorativa */
         .papel-collage::before {
             content: '';
             position: absolute;
             top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
+            left: 40%;
+            width: 100px;
             height: 25px;
-            background-color: #e0c097; /* Color cinta masking */
-            opacity: 0.6;
-            border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background-color: #e0c097;
+            opacity: 0.7;
+            transform: rotate(-3deg);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        #contenedor {
-            z-index: 10;
-        }
-
-        /* Título con tipografía cursiva manuscrita */
         h1 {
-            color: #b71c1c; /* Rojo oscuro vintage */
+            color: #b71c1c;
             font-family: 'Dancing Script', cursive;
-            font-size: 3em;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            line-height: 1.2;
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            line-height: 1.1;
         }
 
         .botones {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
             margin-top: 20px;
         }
 
         button {
             font-family: 'Special Elite', cursive;
-            font-size: 1.3em;
-            padding: 12px 30px;
+            font-size: 1.2em;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -88,126 +80,135 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* Botón "Sí" estilo sello rojo */
         #btnSi {
             background-color: #d32f2f;
             color: #fffaf0;
-            font-weight: bold;
+            z-index: 100;
             position: relative;
-            z-index: 20;
-            /* Un pequeño giro para darle dinamismo */
-            transform: rotate(-2deg);
-        }
-        #btnSi:hover {
-            transform: rotate(0deg) scale(1.05);
-            background-color: #c62828;
         }
 
-        /* Botón "No" estilo papel kraft */
         #btnNo {
             background-color: #d7ccc8;
             color: #5d4037;
             position: relative;
             z-index: 1;
-            transform: rotate(2deg);
-        }
-        #btnNo:hover {
-            transform: rotate(0deg) scale(1.05);
-            background-color: #bcaaa4;
         }
 
-        /* --- ESTILOS PANTALLA FINAL --- */
-        #mensajeFinal {
-            display: none;
-            /* Hereda el estilo de papel collage */
-            transform: rotate(1deg); /* Giro opuesto para variedad */
-            width: 450px;
-        }
-
-        /* Contenedor del video con marco estilo polaroid */
-        .video-marco {
-            background-color: white;
-            padding: 15px 15px 40px 15px; /* Padding extra abajo para el estilo polaroid */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transform: rotate(-2deg);
-            margin-bottom: 25px;
-        }
-        .video-container {
-            width: 100%;
-            padding-top: 177.77%; /* Relación de aspecto 9:16 para Shorts (vertical) */
-            position: relative;
-            overflow: hidden;
-            background: #000;
-        }
-        .video-container iframe {
+        /* --- ESTILO DE LAS FOTOS POLAROID --- */
+        .foto-polaroid {
+            background: white;
+            padding: 10px 10px 35px 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             position: absolute;
-            top: 0;
-            left: 0;
+            z-index: 20;
+            width: 130px;
+            transition: transform 0.3s ease;
+        }
+        
+        .foto-polaroid img {
             width: 100%;
-            height: 100%;
-            border: 0;
+            height: auto;
+            display: block;
+            /* Filtro sepia para dar toque antiguo */
+            filter: sepia(20%);
         }
 
-        /* Nota de detalles con estilo de papel rasgado y clip */
-        .detalles-cita {
-            font-size: 1.4em;
-            color: #4e342e;
-            line-height: 1.6;
-            background: #fff8e1; /* Color papel amarillento */
-            padding: 25px;
-            position: relative;
-            margin-top: 20px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            /* Borde irregular simulando papel rasgado */
-            clip-path: polygon(0% 5%, 5% 0%, 95% 2%, 100% 6%, 98% 95%, 95% 100%, 2% 98%, 0% 92%);
-        }
-
-        /* Decoración de "clip" en la nota */
-        .detalles-cita::after {
+        /* Cinta adhesiva en las fotos */
+        .foto-polaroid::after {
             content: '';
             position: absolute;
             top: -10px;
-            right: 20px;
-            width: 15px;
-            height: 35px;
-            border: 3px solid #a1887f;
-            border-bottom: none;
-            border-radius: 15px 15px 0 0;
-            transform: rotate(15deg);
+            left: 35%;
+            width: 40px;
+            height: 20px;
+            background-color: rgba(224, 192, 151, 0.6);
+            transform: rotate(-5deg);
         }
 
-        .detalles-cita strong {
-            color: #b71c1c;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.2em;
+        /* Posición de la foto 1 (Arriba izquierda) */
+        .foto-1 {
+            top: -70px;
+            left: -20px;
+            transform: rotate(-8deg);
+        }
+
+        /* Posición de la foto 2 (Abajo derecha) */
+        .foto-2 {
+            bottom: -70px;
+            right: -10px;
+            transform: rotate(6deg);
+        }
+
+        /* Ajuste para celulares pequeños */
+        @media (max-width: 400px) {
+            .foto-1 { top: -90px; left: 10px; }
+            .foto-2 { bottom: -90px; right: 10px; }
+        }
+
+        /* --- PANTALLA FINAL --- */
+        #mensajeFinal {
+            display: none;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .video-marco {
+            background: white;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transform: rotate(-2deg);
+            margin-bottom: 20px;
+            width: 90%;
+            margin: 0 auto 20px auto;
+        }
+
+        .detalles-cita {
+            font-size: 1.3em;
+            color: #4e342e;
+            background: #fff8e1;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            /* Borde irregular estilo papel rasgado */
+            clip-path: polygon(0% 2%, 2% 0%, 98% 1%, 100% 5%, 99% 98%, 95% 100%, 1% 99%, 0% 95%);
         }
     </style>
 </head>
 <body>
 
     <div id="contenedor" class="papel-collage">
+        
+        <div class="foto-polaroid foto-1">
+            <img src="foto1.jpg" alt="Foto 1">
+        </div>
+
         <h1>¿Quieres ser mi cita de San Valentín? ❤️</h1>
+        
         <div class="botones">
             <button id="btnSi">¡Sí! 💕</button>
             <button id="btnNo">No</button>
         </div>
+
+        <div class="foto-polaroid foto-2">
+            <img src="foto2.jpg" alt="Foto 2">
+        </div>
+
     </div>
 
-    <div id="mensajeFinal" class="papel-collage">
+    <div id="mensajeFinal">
         <div class="video-marco">
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/8Hf4zOz20LQ?rel=0&autoplay=1&mute=1&loop=1&playlist=8Hf4zOz20LQ&controls=0" 
-                    title="Para ti" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
+            <iframe 
+                width="100%" 
+                height="450" 
+                src="https://www.youtube.com/embed/8Hf4zOz20LQ?rel=0&autoplay=1&mute=1&loop=1&playlist=8Hf4zOz20LQ&controls=0" 
+                title="Para ti" 
+                frameborder="0" 
+                allowfullscreen>
+            </iframe>
         </div>
         
-        <h1>¡Ya sabía que dirías que sí! 🥰</h1>
-        
-        <div class="detalles-cita">
+        <div class="detalles-cita" style="transform: rotate(1deg);">
+            <h1>¡Sabía que sí! 🥰</h1>
             Cita el 13 de febrero a las 17:00 horas.<br>
             <strong>Vestirse elegante (de preferencia vestido por guapa).</strong><br>
             Te amo caracolito. ❤️
@@ -220,35 +221,5 @@
         const contenedor = document.getElementById('contenedor');
         const mensajeFinal = document.getElementById('mensajeFinal');
 
-        let tamañoFuenteSi = 1.3;
-        let paddingVerticalSi = 12;
-        let paddingHorizontalSi = 30;
-
-        const textosNo = ["¿Estás segura?", "Piénsalo bien...", "¡Oye!", "Me vas a romper el corazón 💔", "Última oportunidad", "No te dejare presionar esto"];
-        let contadorTextos = 0;
-
-        btnNo.addEventListener('click', function() {
-            tamañoFuenteSi += 1.5;
-            paddingVerticalSi += 15;
-            paddingHorizontalSi += 25;
-
-            btnSi.style.fontSize = tamañoFuenteSi + 'em';
-            btnSi.style.padding = paddingVerticalSi + 'px ' + paddingHorizontalSi + 'px';
-            // Quitamos el giro al crecer para que se lea bien
-            btnSi.style.transform = 'rotate(0deg)';
-            
-            btnNo.innerText = textosNo[contadorTextos % textosNo.length];
-            contadorTextos++;
-        });
-
-        btnSi.addEventListener('click', function() {
-            contenedor.style.display = 'none';
-            mensajeFinal.style.display = 'block';
-        });
-    </script>
-</body>
-</html>
-
-
-
-
+        let tamañoFuente
+        
