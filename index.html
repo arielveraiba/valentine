@@ -32,10 +32,9 @@
             transform: rotate(-1deg);
             margin-top: 60px;
             margin-bottom: 60px;
-            z-index: 5; /* Capa baja */
+            z-index: 10;
         }
 
-        /* Cinta adhesiva */
         .papel-collage::before {
             content: '';
             position: absolute;
@@ -48,18 +47,17 @@
             font-family: 'Dancing Script', cursive;
             font-size: 2.5em;
             margin-bottom: 25px;
-            position: relative;
-            z-index: 10;
         }
 
         .botones {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 15px;
             flex-wrap: wrap;
             margin-top: 20px;
             position: relative;
-            z-index: 9999; /* ¡SUPER CAPA! Esto asegura que los botones funcionen */
+            z-index: 100; /* Prioridad máxima para clics */
         }
 
         button {
@@ -69,32 +67,26 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: transform 0.2s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            position: relative; /* Necesario para el z-index */
         }
 
-        #btnSi { background-color: #d32f2f; color: #fffaf0; }
-        #btnNo { background-color: #d7ccc8; color: #5d4037; }
+        #btnSi { background-color: #d32f2f; color: #fffaf0; position: relative; }
+        #btnNo { background-color: #d7ccc8; color: #5d4037; position: relative; }
 
-        /* FOTOS */
         .foto-polaroid {
             background: white;
             padding: 10px 10px 35px 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             position: absolute;
-            z-index: 1; /* Detrás de los botones */
-            width: 120px;
+            z-index: 1; 
+            width: 130px;
         }
-        .foto-polaroid img { width: 100%; display: block; filter: sepia(20%); }
-        .foto-polaroid::after {
-            content: ''; position: absolute; top: -10px; left: 35%;
-            width: 40px; height: 20px; background-color: rgba(224, 192, 151, 0.6);
-            transform: rotate(-5deg);
-        }
+        
+        .foto-polaroid img { width: 100%; display: block; filter: sepia(10%); }
 
-        /* Posiciones de fotos para que no estorben */
-        .foto-1 { top: -90px; left: -10px; transform: rotate(-8deg); }
+        /* Tus fotos de ImgBB */
+        .foto-1 { top: -90px; left: -20px; transform: rotate(-8deg); }
         .foto-2 { bottom: -90px; right: -10px; transform: rotate(6deg); }
 
         @media (max-width: 400px) {
@@ -102,16 +94,16 @@
             .foto-2 { bottom: -110px; right: 0; left: 0; margin: auto; }
         }
 
-        /* MENSAJE FINAL */
-        #mensajeFinal { display: none; width: 100%; max-width: 400px; }
+        #mensajeFinal { display: none; width: 100%; max-width: 450px; }
         .video-marco {
             background: white; padding: 10px 10px 40px 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transform: rotate(-2deg); margin-bottom: 20px;
+            transform: rotate(-2deg); margin-bottom: 25px;
         }
         .detalles-cita {
             font-size: 1.3em; color: #4e342e; background: #fff8e1;
-            padding: 20px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            padding: 25px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            clip-path: polygon(0% 5%, 5% 0%, 95% 2%, 100% 6%, 98% 95%, 95% 100%, 2% 98%, 0% 92%);
         }
     </style>
 </head>
@@ -119,7 +111,7 @@
 
     <div id="contenedor" class="papel-collage">
         <div class="foto-polaroid foto-1">
-            <img src="foto1.jpg" alt="Foto 1">
+            <img src="https://i.ibb.co/LXZ359FJ/8Hf4z-Oz20-LQ.jpg" alt="Nosotros">
         </div>
 
         <h1>¿Quieres ser mi cita de San Valentín? ❤️</h1>
@@ -130,7 +122,7 @@
         </div>
 
         <div class="foto-polaroid foto-2">
-            <img src="foto2.jpg" alt="Foto 2">
+            <img src="https://i.ibb.co/239gvJwW/Captura-de-pantalla-2026-02-12-a-las-13-57-26.png" alt="Juntos">
         </div>
     </div>
 
@@ -144,7 +136,7 @@
         <div class="detalles-cita">
             <h1>¡Sabía que sí! 🥰</h1>
             Cita el 13 de febrero a las 17:00 horas.<br>
-            <strong>Vestirse elegante.</strong><br>
+            <strong>Vestirse elegante (de preferencia vestido por guapa).</strong><br>
             Te amo caracolito. ❤️
         </div>
     </div>
@@ -154,13 +146,14 @@
         const btnNo = document.getElementById('btnNo');
         const contenedor = document.getElementById('contenedor');
         const mensajeFinal = document.getElementById('mensajeFinal');
-        
+
         let escala = 1;
-        const textosNo = ["¿Segura?", "Piensalo bien...", "¡Oye!", "Kelly Maria Ramos Villacis💔", "No puedes decir no", "vamoss dime q si", "confio en q me amas y diras q sí porq yo te amo mucho"];
+        const textosNo = ["¿Segura?", "Piénsalo bien...", "¡Oye!", "💔", "No puedes decir no"];
         let contador = 0;
 
-        btnNo.addEventListener('click', function() {
-            escala += 0.5;
+        btnNo.addEventListener('click', function(e) {
+            e.preventDefault();
+            escala += 0.4;
             btnSi.style.transform = `scale(${escala})`;
             btnNo.innerText = textosNo[contador % textosNo.length];
             contador++;
