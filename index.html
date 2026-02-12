@@ -32,19 +32,15 @@
             transform: rotate(-1deg);
             margin-top: 60px;
             margin-bottom: 60px;
-            z-index: 10;
+            z-index: 5; /* Capa baja */
         }
 
+        /* Cinta adhesiva */
         .papel-collage::before {
             content: '';
             position: absolute;
-            top: -15px;
-            left: 40%;
-            width: 100px;
-            height: 25px;
-            background-color: #e0c097;
-            opacity: 0.7;
-            transform: rotate(-3deg);
+            top: -15px; left: 40%; width: 100px; height: 25px;
+            background-color: #e0c097; opacity: 0.7; transform: rotate(-3deg);
         }
 
         h1 {
@@ -52,18 +48,18 @@
             font-family: 'Dancing Script', cursive;
             font-size: 2.5em;
             margin-bottom: 25px;
-            line-height: 1.2;
+            position: relative;
+            z-index: 10;
         }
 
         .botones {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 15px;
             flex-wrap: wrap;
             margin-top: 20px;
             position: relative;
-            z-index: 50; /* Importante para que los botones funcionen */
+            z-index: 9999; /* ¡SUPER CAPA! Esto asegura que los botones funcionen */
         }
 
         button {
@@ -75,19 +71,11 @@
             cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative; /* Necesario para el z-index */
         }
 
-        #btnSi {
-            background-color: #d32f2f;
-            color: #fffaf0;
-            z-index: 100;
-        }
-
-        #btnNo {
-            background-color: #d7ccc8;
-            color: #5d4037;
-            z-index: 100;
-        }
+        #btnSi { background-color: #d32f2f; color: #fffaf0; }
+        #btnNo { background-color: #d7ccc8; color: #5d4037; }
 
         /* FOTOS */
         .foto-polaroid {
@@ -95,69 +83,43 @@
             padding: 10px 10px 35px 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             position: absolute;
-            z-index: 20;
+            z-index: 1; /* Detrás de los botones */
             width: 120px;
         }
-        
-        .foto-polaroid img {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: sepia(20%);
-        }
-
+        .foto-polaroid img { width: 100%; display: block; filter: sepia(20%); }
         .foto-polaroid::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 35%;
-            width: 40px;
-            height: 20px;
-            background-color: rgba(224, 192, 151, 0.6);
+            content: ''; position: absolute; top: -10px; left: 35%;
+            width: 40px; height: 20px; background-color: rgba(224, 192, 151, 0.6);
             transform: rotate(-5deg);
         }
 
-        .foto-1 { top: -80px; left: -20px; transform: rotate(-8deg); }
-        .foto-2 { bottom: -80px; right: -10px; transform: rotate(6deg); }
+        /* Posiciones de fotos para que no estorben */
+        .foto-1 { top: -90px; left: -10px; transform: rotate(-8deg); }
+        .foto-2 { bottom: -90px; right: -10px; transform: rotate(6deg); }
 
         @media (max-width: 400px) {
-            .foto-1 { top: -100px; left: 0; right: 0; margin: auto; }
-            .foto-2 { bottom: -100px; right: 0; left: 0; margin: auto; }
+            .foto-1 { top: -110px; left: 0; right: 0; margin: auto; }
+            .foto-2 { bottom: -110px; right: 0; left: 0; margin: auto; }
         }
 
-        /* PANTALLA FINAL */
-        #mensajeFinal {
-            display: none;
-            width: 100%;
-            max-width: 400px;
-        }
-
+        /* MENSAJE FINAL */
+        #mensajeFinal { display: none; width: 100%; max-width: 400px; }
         .video-marco {
-            background: white;
-            padding: 10px 10px 40px 10px;
+            background: white; padding: 10px 10px 40px 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transform: rotate(-2deg);
-            margin-bottom: 20px;
-            width: 90%;
-            margin: 0 auto 20px auto;
+            transform: rotate(-2deg); margin-bottom: 20px;
         }
-
         .detalles-cita {
-            font-size: 1.3em;
-            color: #4e342e;
-            background: #fff8e1;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            font-size: 1.3em; color: #4e342e; background: #fff8e1;
+            padding: 20px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
 
     <div id="contenedor" class="papel-collage">
-        
         <div class="foto-polaroid foto-1">
-            <img src="foto1.jpg" alt="Nosotros">
+            <img src="foto1.jpg" alt="Foto 1">
         </div>
 
         <h1>¿Quieres ser mi cita de San Valentín? ❤️</h1>
@@ -168,56 +130,42 @@
         </div>
 
         <div class="foto-polaroid foto-2">
-            <img src="foto2.jpg" alt="Juntos">
+            <img src="foto2.jpg" alt="Foto 2">
         </div>
     </div>
 
     <div id="mensajeFinal">
         <div class="video-marco">
-            <iframe 
-                width="100%" 
-                height="450" 
+            <iframe width="100%" height="450" 
                 src="https://www.youtube.com/embed/8Hf4zOz20LQ?rel=0&autoplay=1&mute=1&loop=1&playlist=8Hf4zOz20LQ&controls=0" 
-                title="Para ti" 
-                frameborder="0" 
-                allowfullscreen>
+                title="Para ti" frameborder="0" allowfullscreen>
             </iframe>
         </div>
-        
-        <div class="detalles-cita" style="transform: rotate(1deg);">
+        <div class="detalles-cita">
             <h1>¡Sabía que sí! 🥰</h1>
             Cita el 13 de febrero a las 17:00 horas.<br>
-            <strong>Vestirse elegante (de preferencia vestido por guapa).</strong><br>
+            <strong>Vestirse elegante.</strong><br>
             Te amo caracolito. ❤️
         </div>
     </div>
 
     <script>
-        // Verificamos que el código cargue
-        console.log("Código de San Valentín cargado correctamente");
-
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
         const contenedor = document.getElementById('contenedor');
         const mensajeFinal = document.getElementById('mensajeFinal');
-
+        
         let escala = 1;
+        const textosNo = ["¿Segura?", "Piensalo bien...", "¡Oye!", "kelly Maria Ramos Villacis💔", "No puedes decir no", "vamoss dime q si", "confio en q me amas y diras q sí porq yo te amo mucho"];
+        let contador = 0;
 
-        const textosNo = ["¿Estás segura?", "Piénsalo bien...", "¡Oye!", "Me vas a romper el corazón 💔", "Última oportunidad", "No te dejare presionar esto"];
-        let contadorTextos = 0;
-
-        // LÓGICA DEL BOTÓN NO
         btnNo.addEventListener('click', function() {
-            // Hacemos crecer el botón SI
             escala += 0.5;
             btnSi.style.transform = `scale(${escala})`;
-            
-            // Cambiamos el texto del NO
-            btnNo.innerText = textosNo[contadorTextos % textosNo.length];
-            contadorTextos++;
+            btnNo.innerText = textosNo[contador % textosNo.length];
+            contador++;
         });
 
-        // LÓGICA DEL BOTÓN SI
         btnSi.addEventListener('click', function() {
             contenedor.style.display = 'none';
             mensajeFinal.style.display = 'block';
